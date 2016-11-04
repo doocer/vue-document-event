@@ -1,0 +1,20 @@
+{
+  "name": "du-clickoutside",
+  "version": "1.0.0",
+  "description": "A click outside directive for Vue.js",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doocer/du-clickoutside.git"
+  },
+  "keywords": [
+    "Vue",
+    "directive"
+  ],
+  "author": "Hsiaoming Yang <me@lepture.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/doocer/du-clickoutside/issues"
+  },
+  "homepage": "https://github.com/doocer/du-clickoutside#readme"
+}
