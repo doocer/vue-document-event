@@ -1,42 +1,52 @@
 'use strict';
 
 /**
- * Credit to element ui
+ * Inspired by element ui clickoutside
  */
 
+var EVENTS = {};
 var nodeList = [];
-var ctx = '@CLICK_OUTSIDE@';
 
-if (document.addEventListener) {
-  document.addEventListener('click', function (e) {
+function registerEvent(name) {
+  if (EVENTS[name]) return;
+
+  var mark = genMark(name);
+  var handler = function (e) {
     nodeList.forEach(function (node) {
-      return node[ctx].documentHandler(e);
+      return node[mark].documentHandler(e);
     });
-  });
-} else if (document.attachEvent) {
-  document.attachEvent('onclick', function (e) {
-    nodeList.forEach(function (node) {
-      return node[ctx].documentHandler(e);
-    });
-  });
+  }
+  if (document.addEventListener) {
+    document.addEventListener(name, handler);
+  } else if (document.attachEvent) {
+    document.attachEvent('on' + name, handler);
+  }
+  EVENTS[name] = true;
+}
+
+function genMark(name) {
+  return '@@' + name + '@@';
 }
 
 module.exports = {
   bind: function (el, binding, vnode) {
+    registerEvent(binding.arg);
+
     var id = nodeList.push(el) - 1;
     var vctx = vnode.context;
+    var mark = genMark(binding.arg);
     var documentHandler = function (e) {
       if (!vctx || el.contains(e.target) || vctx.popperElm && vctx.popperElm.contains(e.target)) {
         return;
       }
 
       if (binding.expression) {
-        el[ctx].methodName && vctx[el[ctx].methodName] && vctx[el[ctx].methodName]();
+        el[mark].methodName && vctx[el[mark].methodName] && vctx[el[mark].methodName]();
       } else {
-        el[ctx].bindingFn && el[ctx].bindingFn();
+        el[mark].bindingFn && el[mark].bindingFn();
       }
     };
-    el[ctx] = {
+    el[mark] = {
       id: id,
       documentHandler: documentHandler,
       methodName: binding.expression,
@@ -44,14 +54,16 @@ module.exports = {
     };
   },
   update: function (el, binding) {
-    el[ctx].methodName = binding.expression;
-    el[ctx].bindingFn = binding.value;
+    var mark = genMark(binding.arg);
+    el[mark].methodName = binding.expression;
+    el[mark].bindingFn = binding.value;
   },
-  unbind: function (el) {
+  unbind: function (el, binding) {
+    var mark = genMark(binding.arg);
     var len = nodeList.length;
 
     for (var i = 0; i < len; i++) {
-      if (nodeList[i][ctx].id === el[ctx].id) {
+      if (nodeList[i][mark].id === el[mark].id) {
         nodeList.splice(i, 1);
         break;
       }

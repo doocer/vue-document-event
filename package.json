@@ -1,11 +1,11 @@
 {
-  "name": "du-clickoutside",
+  "name": "vue-document-event",
   "version": "1.0.0",
-  "description": "A click outside directive for Vue.js",
+  "description": "A document event directive for Vue.js",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/doocer/du-clickoutside.git"
+    "url": "git+https://github.com/doocer/vue-document-event.git"
   },
   "keywords": [
     "Vue",
@@ -14,7 +14,7 @@
   "author": "Hsiaoming Yang <me@lepture.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/doocer/du-clickoutside/issues"
+    "url": "https://github.com/doocer/vue-document-event/issues"
   },
-  "homepage": "https://github.com/doocer/du-clickoutside#readme"
+  "homepage": "https://github.com/doocer/vue-document-event#readme"
 }

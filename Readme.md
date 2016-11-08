@@ -1,6 +1,6 @@
-# du-clickoutside
+# vue-document-event
 
-A click outside directive for Vue.js.
+A document event directive for Vue.js.
 
 
 ## Usage
@@ -9,16 +9,15 @@ Register this directive:
 
 ```js
 var Vue = require('vue');
-var clickoutside = require('du-clickoutside');
 
-Vue.directive('clickoutside', clickoutside);
+Vue.directive('global', require('vue-document-event'));
 ```
 
 Use it in component:
 
 ```html
 <template>
-  <div class="dropdown" v-show="show" v-clickoutside="show=false">
+  <div class="dropdown" v-show="show" v-global:click="show=false">
   </div>
 </template>
 
